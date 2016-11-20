@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EmployeeDao implements GenericDao<Employee, Long> {
+public class EmployeeDao implements GenericDao<Employee> {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -21,7 +21,7 @@ public class EmployeeDao implements GenericDao<Employee, Long> {
     }
 
     @Override
-    public Employee read(Long id) {
+    public Employee read(int id) {
         final String sql = "SELECT * FROM employee WHERE ID = ?";
         Employee employee = jdbcTemplate.queryForObject(sql,
                 new Object[]{id},
