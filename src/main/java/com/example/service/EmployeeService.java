@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class EmployeeService {
 
@@ -32,6 +35,11 @@ public class EmployeeService {
     @Transactional
     public void deleteEmployee(int id) {
         employeeDao.delete(id);
+    }
+
+    @Transactional
+    public List<Employee> listEmployee() {
+        return employeeDao.findAll();
     }
 
 }

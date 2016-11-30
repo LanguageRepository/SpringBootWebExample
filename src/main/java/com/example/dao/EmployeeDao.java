@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class EmployeeDao implements GenericDao<Employee> {
 
@@ -14,8 +16,8 @@ public class EmployeeDao implements GenericDao<Employee> {
 
     @Override
     public Employee create(Employee employee) {
-        final String sql = "INSERT INTO employee(ID, NAME, AGE) VALUES(?, ?, ?)";
-        Object[] objects = {employee.getId(), employee.getName(), employee.getAge()};
+        final String sql = "INSERT INTO employee(NAME, AGE) VALUES(?, ?)";
+        Object[] objects = {employee.getName(), employee.getAge()};
         jdbcTemplate.update(sql, objects);
         return employee;
     }
@@ -27,6 +29,12 @@ public class EmployeeDao implements GenericDao<Employee> {
                 new Object[]{id},
                 new BeanPropertyRowMapper<Employee>(Employee.class));
         return employee;
+    }
+
+    public List<Employee> findAll() {
+        final String sql = "SELECT * FROM employee";
+        List<Employee> employees = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Employee>(Employee.class));
+        return employees;
     }
 
     @Override

@@ -37,4 +37,9 @@ public class EmployeeController {
         employeeService.deleteEmployee(id);
     }
 
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Employee> getAll() {
+        return employeeService.listEmployee();
+    }
+
 }
